@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Cart\ShoppingCart;
+use App\Product;
+
 use DB;
 
+use Illuminate\Http\Request;
+use Session;
+
 class ProductController extends Controller
-{  
+{
     // /**
     //  * Create a new controller instance.
     //  *
@@ -28,5 +33,16 @@ class ProductController extends Controller
         $products = DB::table('products')->get()->where('category_id', $id);
 
         return view('product', ['products' => $products, 'categoryName' => $catName]);
+    }
+
+    public function add(Request $request, $id)
+    {
+        $oldShoppingCart = Session::has('shoppingCart') ? Session::get('shoppingCart') : null;
+        $shoppingCart = new ShoppingCart($oldShoppingCart);
+
+        $shoppingCart->add($request, Product::find($id));
+        // dd($request->session()->get("shoppingCart"));
+        
+        return back()->with('success','Successfully added item to cart');
     }
 }
