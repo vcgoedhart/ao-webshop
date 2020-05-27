@@ -1,0 +1,33 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.card>a:hover,
+.btn:hover,
+.back-button:hover {
+    transform: scale(1.05);
+}
+
+.shopping-cart-icon {
+    font-size: 20px;
+}
+
+.alert {
+    position: absolute;
+    width: 25vw;
+    top: 65px;
+    right: 0;
+}
+
+@keyframes fadeAlert {
+    from {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
