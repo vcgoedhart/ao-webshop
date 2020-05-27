@@ -11,39 +11,39 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        $category = new \App\Category([
             'name' => "Schilderijen",
-            'description' => "Hou jij van kunst?!",
-            'created_at' => now(),
-            'updated_at' => now(),
+            'description' => "Hou jij van kunst?!"
         ]);
 
-        DB::table('categories')->insert([
+        $category->save();
+
+        $category = new \App\Category([
             'name' => "Vazen",
-            'description' => "Vind jij vazen kapot gooien leuk? Koop hier een prachtige vaas.",
-            'created_at' => now(),
-            'updated_at' => now(),
+            'description' => "Een vaas past wel in mijn huis."
         ]);
 
-        DB::table('categories')->insert([
-            'name' => "Eten",
-            'description' => "Heb je trek? Koop hier uw overheerlijke lekkernijen.",
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $category->save();
 
-        DB::table('categories')->insert([
+        $category = new \App\Category([
             'name' => "Petten",
-            'description' => "Ben jij een vampier en je hou niet van de zon? Kom!",
-            'created_at' => now(),
-            'updated_at' => now(),
+            'description' => "Last van zon?"
         ]);
 
-        DB::table('categories')->insert([
+        $category->save();
+
+        $category = new \App\Category([
             'name' => "Tafels",
-            'description' => "Wil je graat een tafel gebruiken je dagelijks gebruik? Hier!",
-            'created_at' => now(),
-            'updated_at' => now(),
+            'description' => "Gebruik een tafel om spullen op te zetten."
         ]);
+
+        $category->save();
+
+        $category = new \App\Category([
+            'name' => "Eten",
+            'description' => "Yum!"
+        ]);
+
+        $category->save();
     }
 }
