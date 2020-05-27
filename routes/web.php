@@ -13,13 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Home Page
+Route::get('/', 'HomeController@index')->name('home');
+
+// Categories Overview
 Route::get('/category', 'CategoryController@index')->name('category');
+
+// Product Overview
 Route::get('/product/{id}', 'ProductController@index')->name('product');
+Route::get('/product/add/{id}', [
+    'uses' => 'ProductController@add',
+    'as' => 'product.add'
+]);
+
+
+// Product Details
 Route::get('/productView/{id}', 'ProductViewController@index')->name('productView');
