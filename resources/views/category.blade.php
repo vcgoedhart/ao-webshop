@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Categories</h1>
+            <h2>Categories</h2>
             <hr>
             
             <div class="grid-container">

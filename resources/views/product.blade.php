@@ -7,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col">
-        <h1>{{ $categoryName[0] }}</h1>
+        <h2>{{ $categoryName[0] }}</h2>
             <hr>
             
             <div class="grid-container">
