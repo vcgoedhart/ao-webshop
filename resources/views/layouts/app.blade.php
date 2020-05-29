@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/alert.js') }}" defer></script>
+    <script src="{{ asset('js/quantity.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -45,6 +46,12 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- ShoppingCart Overview -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shoppingCart">
+                                    <i class="shopping-cart-icon fas fa-shopping-cart"></i>
+                                </a>
+                            </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
