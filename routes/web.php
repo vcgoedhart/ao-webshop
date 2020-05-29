@@ -23,7 +23,8 @@ Route::get('/category', 'CategoryController@index')->name('category');
 
 // Product Overview
 Route::get('/product/{id}', 'ProductController@index')->name('product');
-Route::get('/product/add/{id}', [
+
+Route::post('/product/add/{id}', [
     'uses' => 'ProductController@add',
     'as' => 'product.add'
 ]);
@@ -34,6 +35,11 @@ Route::get('/productView/{id}', 'ProductViewController@index')->name('productVie
 
 // Shopping Cart Overview
 Route::get('/shoppingCart', 'ShoppingCartController@index')->name('shoppingCart');
+Route::get('/shoppingCart/remove/{id}', [
+    'uses' => 'ShoppingCartController@remove',
+    'as' => 'shoppingCart.remove'
+]);
+
 Route::post('/shoppingCart/update/{id}', [
     'uses' => 'ShoppingCartController@update',
     'as' => 'shoppingCart.update'
