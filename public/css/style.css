@@ -31,3 +31,7 @@
         transform: translateY(-50px);
     }
 }
+
+.quantityInput {
+    width: 50px;
+}
