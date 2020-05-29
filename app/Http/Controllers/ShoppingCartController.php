@@ -21,4 +21,11 @@ class ShoppingCartController extends Controller
 
         return back();
     }
+
+    public function remove($id)
+    {
+        Session::get('shoppingCart')->removeProduct($id);
+
+        return back();
+    }
 }
