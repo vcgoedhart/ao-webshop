@@ -31,3 +31,11 @@ Route::get('/product/add/{id}', [
 
 // Product Details
 Route::get('/productView/{id}', 'ProductViewController@index')->name('productView');
+
+// Shopping Cart Overview
+Route::get('/shoppingCart', 'ShoppingCartController@index')->name('shoppingCart');
+Route::post('/shoppingCart/update/{id}', [
+    'uses' => 'ShoppingCartController@update',
+    'as' => 'shoppingCart.update'
+]);
+
