@@ -15,7 +15,6 @@
                         <div class="card-body text-center">
                             <h2 class="card-title">{{ $category->name }}</h2>
                             <p class="card-text">{{ $category->description }}</p>
-                            {{-- <a href="product/{{ $category->id }}" class="btn btn-primary">Meer...</a> --}}
                         </div>
                     </div>
                 @endforeach
