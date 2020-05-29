@@ -2,62 +2,126 @@
 
 namespace App\Cart;
 
-use App\Product;
+use App\Cart\Product;
 
 use Illuminate\Http\Request;
 use Session;
 
 class ShoppingCart
 {
-    private $items = [];
-   
+    private $cart = [];
+
     /**
-     * Loads old shopping cart to prevent erasing from older array.
+     * Load in old shopping cart to prevent data from erasing
      *
-     * @param ShoppingCart $oldShoppingCart
+     * @param mixed $oldShoppingCart
      */
-    public function __construct(ShoppingCart $oldShoppingCart)
+    public function __construct($oldShoppingCart)
     {
         if ($oldShoppingCart) {
-            $this->items = $oldShoppingCart->items;
+            $this->cart = $oldShoppingCart->cart;
         }
     }
 
     /**
-     * Add an item to the ShoppingCart session
+     * Add product to the cart array
      *
      * @param Request $request
-     * @param Product $product
-     * @return void
+     * @param \App\Product $product
      */
-    public function add(Request $request, Product $product)
+    public function add(Request $request, \App\Product $product)
     {
-        // Creates new item with proved information.
-        $newItem = ["item" => $product,
-                    "quantity" => 0,
-                    "price" => 0];
+        $newProduct = new Product($product);
 
-        // Checks if item already exists in shopping cart.
-        if ($this->items && array_key_exists($product->id, $this->items)) {
-            $newItem = $this->items[$product->id];
+        if ($this->cart &&
+            array_key_exists($product->id, $this->cart)) {
+
+            $newProduct = $this->cart[$product->id];
         }
 
-        // Update information about the cart
-        $newItem["quantity"]++;
-        $newItem["price"] = $newItem["quantity"] * $product->price;
-
-        $this->items[$product->id] = $newItem;
+        $newProduct->quantityIncrement();
+        
+        $this->cart[$product->id] = $newProduct;
 
         $request->session()->put('shoppingCart', $this);
     }
 
     /**
-     * Get everything out of the items array
+     * Edit quantity of product (0 = delete)
      *
-     * @return void
+     * @param int $id
+     * @param int $quantity
      */
-    public function getAll () {
-        return $this->items;
+    public function editQuantity($id, $quantity)
+    { 
+        if ($quantity == 0) {
+            $this->removeProduct($id);
+            return;
+        }
+        $product = $this->cart[$id];
+        $product->setQuantity($quantity);
     }
 
+    /**
+     * Remove product out of the cart array (none = forget session)
+     *
+     * @param int $id
+     */
+    public function removeProduct($id)
+    {
+        unset($this->cart[$id]);
+
+        if (empty($this->cart)) {
+            Session::forget("shoppingCart");
+        }
+    }
+
+    /**
+     * Get total quantity of every product
+     */
+    public function getTotalQuantity()
+    {
+        $totalQuantity = 0;
+        foreach ($this->cart as $product) {
+            $totalQuantity += $product->quantity;
+        }
+        return $totalQuantity;
+    }
+
+    /**
+     * Get total price of every product
+     */
+    public function getTotalPrice()
+    {
+        $totalPrice = 0;
+        foreach ($this->cart as $product) {
+        $totalPrice += $product->price;
+        }
+        return $totalPrice;
+    }
+
+    /**
+    * Get a property value.
+    *
+    * @param string $propName
+    */
+    public function __get($propName)
+    {
+        if (property_exists($this, $propName)) {
+            return $this->$propName;
+        }
+    }
+
+    /**
+    * Set a property value.
+    *
+    * @param string $propName
+    * @param mixed $value
+    */
+    public function __set($propName, $value)
+    {
+        if (property_exists($this, $propName)) {
+            $this->$propName = $value;
+        }
+    }
 }
