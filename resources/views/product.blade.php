@@ -20,10 +20,15 @@
                         <div class="card-body text-center">
                             <h2 class="card-title ">{{ $product->name }}</h2>
                             <p class="card-text">&euro;{{ $product->price }},-</p>
-                            <a href="{{ route('product.add', ['id' => $product->id]) }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i>
-                                <i class="shopping-cart-icon fas fa-shopping-cart"></i>
-                            </a>
+
+                            <form action="{{ route('product.add', ['id' => $product->id]) }}" method="POST">
+                                @csrf
+                                <input id="quantityInput" class="quantityInput" name="quantityInput" type="number" min="1" value="1">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-plus"></i>
+                                    <i class="shopping-cart-icon fas fa-shopping-cart"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
