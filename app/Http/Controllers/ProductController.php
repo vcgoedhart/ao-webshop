@@ -40,9 +40,8 @@ class ProductController extends Controller
         $oldShoppingCart = Session::has('shoppingCart') ? Session::get('shoppingCart') : null;
         $shoppingCart = new ShoppingCart($oldShoppingCart);
 
-        $shoppingCart->add($request, Product::find($id));
-        // dd($request->session()->get("shoppingCart"));
-        
+        $shoppingCart->add($request, Product::find($id), $request->get("quantityInput"));
+
         return back()->with('success','Successfully added item to cart');
     }
 }

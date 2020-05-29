@@ -29,7 +29,7 @@ class ShoppingCart
      * @param Request $request
      * @param \App\Product $product
      */
-    public function add(Request $request, \App\Product $product)
+    public function add(Request $request, \App\Product $product, $quantity)
     {
         $newProduct = new Product($product);
 
@@ -39,7 +39,7 @@ class ShoppingCart
             $newProduct = $this->cart[$product->id];
         }
 
-        $newProduct->quantityIncrement();
+        $newProduct->setQuantity($newProduct->quantity + $quantity);
         
         $this->cart[$product->id] = $newProduct;
 

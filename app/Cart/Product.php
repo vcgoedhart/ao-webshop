@@ -17,20 +17,15 @@ class Product
         $this->price = $productInfo->price;
     }
 
-    public function quantityIncrement() 
-    {
-        if ($this->quantity > 0) {
-            $this->price = ($this->quantity + 1) * ($this->price / $this->quantity);
-        }
-        $this->quantity++;
-    }
-
     public function setQuantity($value) 
     {
-        $this->price = $value * ($this->price / $this->quantity);
-        $this->quantity = $value;
+        if ($this->quantity == 0) {
+            $this->price = $value * $this->price;
+        } else {
+            $this->price = $value * ($this->price / $this->quantity);
+        }
 
-        $this->totalQuantity++;
+        $this->quantity = $value;
     }
 
     /**
