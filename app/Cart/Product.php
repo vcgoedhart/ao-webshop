@@ -11,12 +11,22 @@ class Product
     private $quantity = 0;
     private $price = 0;
    
+    /**
+     * Loads in neccessary information that the product needs
+     *
+     * @param mixed $productInfo
+     */
     public function __construct($productInfo)
     {
         $this->information = $productInfo;
         $this->price = $productInfo->price;
     }
 
+    /**
+     * Set a quantity for the product. Also updates price according to the quantity.
+     *
+     * @param int $value
+     */
     public function setQuantity($value) 
     {
         if ($this->quantity == 0) {
