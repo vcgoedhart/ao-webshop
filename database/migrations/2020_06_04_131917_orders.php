@@ -15,7 +15,7 @@ class Orders extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('cart', 5000);
+            $table->longText('cart');
             $table->integer('user_id')->unsigned();
         });
     }
