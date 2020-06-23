@@ -16,10 +16,10 @@ class ShoppingCart
      *
      * @param mixed $oldShoppingCart
      */
-    public function __construct($oldShoppingCart)
+    public function __construct()
     {
-        if ($oldShoppingCart) {
-            $this->cart = $oldShoppingCart->cart;
+        if ($this->getSessionCart()) {
+            $this->cart = $this->getSessionCart()->cart;
         }
     }
 
@@ -33,9 +33,7 @@ class ShoppingCart
     {
         $newProduct = new Product($product);
 
-        if ($this->cart &&
-            array_key_exists($product->id, $this->cart)) {
-
+        if (array_key_exists($product->id, $this->cart)) {
             $newProduct = $this->cart[$product->id];
         }
 
@@ -123,5 +121,9 @@ class ShoppingCart
         if (property_exists($this, $propName)) {
             $this->$propName = $value;
         }
+    }
+
+    public function getSessionCart() {
+        return Session::has('shoppingCart') ? Session::get('shoppingCart') : null;
     }
 }
