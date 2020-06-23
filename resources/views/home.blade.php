@@ -2,7 +2,6 @@
 
 <div class="d-flex justify-content-center">
     <h1 class="display-4">Welcome to Vincent's webshop</h1>
-    {{-- {{ dd($cart) }} --}}
 </div>
 
 @endsection

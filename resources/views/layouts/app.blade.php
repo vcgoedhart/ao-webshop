@@ -29,7 +29,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -40,18 +40,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li>
-                            <a href="/category">Categories</a>
+                            <a href="{{ route("category") }}">Categories</a>
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- ShoppingCart Overview -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="/shoppingCart">
-                                    <i class="shopping-cart-icon fas fa-shopping-cart"></i>
-                                </a>
-                            </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -81,6 +75,25 @@
                                 </div>
                             </li>
                         @endguest
+                        @if (Auth::check())
+                            <!-- Order Overview -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("order") }}">
+                                        Orders
+                                    </a>
+                                </li>
+                            <!-- ShoppingCart Overview -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("shoppingCart") }}">
+                                        <i class="shopping-cart-icon fas fa-shopping-cart"></i> 
+                                        @if (Session::has("shoppingCart"))
+                                            <span>
+                                                {{ Session::get('shoppingCart')->getTotalQuantity() }}
+                                            </span>
+                                        @endif
+                                    </a>
+                                </li>
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -16,32 +16,39 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Home Page
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name("home");
 
-// Categories Overview
-Route::get('/category', 'CategoryController@index')->name('category');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/category', 'CategoryController@index')->name('category');
 
-// Product Overview
-Route::get('/product/{id}', 'ProductController@index')->name('product');
+    // Product Overview
+    Route::get('/product/{id}', 'ProductController@index')->name('product');
 
-Route::post('/product/add/{id}', [
-    'uses' => 'ProductController@add',
-    'as' => 'product.add'
-]);
+    Route::post('/product/add/{id}', [
+        'uses' => 'ProductController@add',
+        'as' => 'product.add'
+    ]);
 
 
-// Product Details
-Route::get('/productView/{id}', 'ProductViewController@index')->name('productView');
+    // Product Details
+    Route::get('/productView/{id}', 'ProductViewController@index')->name('productView');
 
-// Shopping Cart Overview
-Route::get('/shoppingCart', 'ShoppingCartController@index')->name('shoppingCart');
-Route::get('/shoppingCart/remove/{id}', [
-    'uses' => 'ShoppingCartController@remove',
-    'as' => 'shoppingCart.remove'
-]);
+    // Shopping Cart Overview
+    Route::get('/shoppingCart', 'ShoppingCartController@index')->name('shoppingCart');
+    Route::get('/shoppingCart/remove/{id}', [
+        'uses' => 'ShoppingCartController@remove',
+        'as' => 'shoppingCart.remove'
+    ]);
+    Route::get('/shoppingCart/order', [
+        'uses' => 'ShoppingCartController@order',
+        'as' => 'shoppingCart.order'
+    ]);
 
-Route::post('/shoppingCart/update/{id}', [
-    'uses' => 'ShoppingCartController@update',
-    'as' => 'shoppingCart.update'
-]);
+    Route::post('/shoppingCart/update/{id}', [
+        'uses' => 'ShoppingCartController@update',
+        'as' => 'shoppingCart.update'
+    ]);
 
+    // Order Overview
+    Route::get('/order', 'OrderController@index')->name('order');
+});

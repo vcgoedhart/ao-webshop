@@ -32,7 +32,7 @@
 
         <div class="p-3 border">
             <p class="m-0">
-                <a class="btn btn-primary mr-1" href="">Order</a>
+                <a class="btn btn-primary mr-1" href="{{ route('shoppingCart.order') }}">Order</a>
                 <b>Total products({{ $shoppingCart->getTotalQuantity() }}) - &euro;{{ $shoppingCart->getTotalPrice() }},-</b>
             </p>
         </div>
