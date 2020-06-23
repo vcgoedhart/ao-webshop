@@ -35,3 +35,7 @@
 .quantityInput {
     width: 50px;
 }
+
+.rowHover:hover {
+    background-color: lightgray;
+}
