@@ -19,6 +19,7 @@ class Products extends Migration
             $table->string('description', 2000);
             $table->string('price');
             $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
 
