@@ -7,15 +7,11 @@
             <tr>
                 <th>Order ID</th>
                 <th>Total Price</th>
-                <th>Options</th>
             </tr>
             @foreach ($orders as $order)
                 <tr class="rowHover">
                     <td>{{ $order->id }}</td>
                     <td>&euro;{{ unserialize($order->cart)->getTotalPrice() }},-</td>
-                    <td>
-                        {{-- <a href="" class="btn btn-primary">More...</a> --}}
-                    </td>
                 </tr>
             @endforeach
         </table> 
