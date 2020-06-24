@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Category;
 
 class CategoryController extends Controller
 {    
@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = Category::all();
 
         return view('category', ['categories' => $categories]);
     }

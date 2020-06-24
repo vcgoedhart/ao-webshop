@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Cart\Product;
+
 use App\Cart\ShoppingCart;
+use App\Order;
+
 use Session;
-use DB;
 
 class ShoppingCartController extends Controller
 {
@@ -19,26 +20,32 @@ class ShoppingCartController extends Controller
 
     public function update(Request $request, $id) 
     {
-        Session::get('shoppingCart')->editQuantity($id, $request->get("quantityInput"));
+        $cart = new ShoppingCart();
+        $cart->editQuantity($id, $request->get("quantityInput"));
 
         return back();
     }
 
     public function remove($id)
     {
-        Session::get('shoppingCart')->removeProduct($id);
+        $cart = new ShoppingCart();
+        $cart->removeProduct($id);
 
         return back();
     }
 
     public function order()
     {
-        $shoppingCart = Session::get('shoppingCart');
-        
-        $content = ["cart" => serialize($shoppingCart),
+        $cart = new ShoppingCart();
+
+        $content = ["cart" => serialize($cart->getSessionCart()),
                     "user_id" => Auth()->user()->id];
  
-        DB::table("orders")->insert($content);
+        // DB::table("orders")->insert($content);
+        Order::create([
+            'cart' => $content['cart'],
+            'user_id' => $content['user_id']
+        ]);
 
         Session::forget('shoppingCart');
 

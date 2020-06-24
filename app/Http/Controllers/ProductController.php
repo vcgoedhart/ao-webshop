@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Cart\ShoppingCart;
+use App\Category;
 use App\Product;
 
-use DB;
-
 use Illuminate\Http\Request;
-use Session;
 
 class ProductController extends Controller
 {
@@ -19,16 +17,16 @@ class ProductController extends Controller
      */
     public function index($id)
     {
-        $catName = DB::table('categories')->get()->where('id', $id)->pluck('name');
-        $products = DB::table('products')->get()->where('category_id', $id);
+        $catName = Category::where('id', $id)->pluck('name');
+        $products = Product::where('category_id', $id)->get();
 
         return view('product', ['products' => $products, 'categoryName' => $catName]);
     }
 
     public function add(Request $request, $id)
     {
-        $shoppingCart = new ShoppingCart();
-        $shoppingCart->add($request, Product::find($id), $request->get("quantityInput"));
+        $cart = new ShoppingCart();
+        $cart->add($request, Product::find($id), $request->get("quantityInput"));
 
         return back()->with('success','Successfully added item to cart');
     }

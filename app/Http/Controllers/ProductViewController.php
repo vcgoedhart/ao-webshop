@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Product;
 
 class ProductViewController extends Controller
 {  
@@ -14,7 +14,7 @@ class ProductViewController extends Controller
      */
     public function index($id)
     {
-        $product = DB::table('products')->get()->where('id', $id)[$id - 1];
+        $product = Product::find($id);
 
         return view('productView', ["product" => $product]);
     }
