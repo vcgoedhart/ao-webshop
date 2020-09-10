@@ -38,17 +38,13 @@ class ShoppingCartController extends Controller
     {
         $cart = new ShoppingCart();
 
-        $content = ["cart" => serialize($cart->getSessionCart()),
-                    "user_id" => Auth()->user()->id];
- 
-        // DB::table("orders")->insert($content);
         Order::create([
-            'cart' => $content['cart'],
-            'user_id' => $content['user_id']
+            'cart' => serialize($cart->getSessionCart()),
+            'user_id' => Auth()->user()->id
         ]);
 
         Session::forget('shoppingCart');
 
-        return back();
+        return back()->with('success','Successfully ordered');
     }
 }
