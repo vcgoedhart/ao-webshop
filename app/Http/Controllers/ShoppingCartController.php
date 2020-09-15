@@ -11,25 +11,25 @@ use Session;
 
 class ShoppingCartController extends Controller
 {
-    public function index() 
+    public function index()
     {
         $shoppingCart = new ShoppingCart();
 
         return view("shoppingCart", ["shoppingCart" => $shoppingCart->getSessionCart()]);
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         $cart = new ShoppingCart();
-        $cart->editQuantity($id, $request->get("quantityInput"));
+        $cart->editQuantity($request, $id, $request->get("quantityInput"));
 
         return back();
     }
 
-    public function remove($id)
+    public function remove(Request $request, $id)
     {
         $cart = new ShoppingCart();
-        $cart->removeProduct($id);
+        $cart->removeProduct($request, $id);
 
         return back();
     }
@@ -45,6 +45,6 @@ class ShoppingCartController extends Controller
 
         Session::forget('shoppingCart');
 
-        return back()->with('success','Successfully ordered');
+        return back()->with('success', 'Successfully ordered');
     }
 }

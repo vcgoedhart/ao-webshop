@@ -38,7 +38,7 @@ class ShoppingCart
         }
 
         $newProduct->setQuantity($newProduct->quantity + $quantity);
-        
+
         $this->cart[$product->id] = $newProduct;
 
         $request->session()->put('shoppingCart', $this);
@@ -50,14 +50,17 @@ class ShoppingCart
      * @param int $id
      * @param int $quantity
      */
-    public function editQuantity($id, $quantity)
-    { 
+    public function editQuantity(Request $request, $id, $quantity)
+    {
         if ($quantity == 0) {
-            $this->removeProduct($id);
+            $this->removeProduct($request, $id);
             return;
         }
+
         $product = $this->cart[$id];
         $product->setQuantity($quantity);
+
+        $request->session()->put('shoppingCart', $this);
     }
 
     /**
@@ -65,13 +68,15 @@ class ShoppingCart
      *
      * @param int $id
      */
-    public function removeProduct($id)
+    public function removeProduct(Request $request, $id)
     {
         unset($this->cart[$id]);
 
         if (empty($this->cart)) {
             Session::forget("shoppingCart");
         }
+
+        $request->session()->put('shoppingCart', $this);
     }
 
     /**
@@ -93,16 +98,16 @@ class ShoppingCart
     {
         $totalPrice = 0;
         foreach ($this->cart as $product) {
-        $totalPrice += $product->price;
+            $totalPrice += $product->price;
         }
         return $totalPrice;
     }
 
     /**
-    * Get a property value.
-    *
-    * @param string $propName
-    */
+     * Get a property value.
+     *
+     * @param string $propName
+     */
     public function __get($propName)
     {
         if (property_exists($this, $propName)) {
@@ -111,11 +116,11 @@ class ShoppingCart
     }
 
     /**
-    * Set a property value.
-    *
-    * @param string $propName
-    * @param mixed $value
-    */
+     * Set a property value.
+     *
+     * @param string $propName
+     * @param mixed $value
+     */
     public function __set($propName, $value)
     {
         if (property_exists($this, $propName)) {
@@ -123,7 +128,8 @@ class ShoppingCart
         }
     }
 
-    public function getSessionCart() {
+    public function getSessionCart()
+    {
         return Session::has('shoppingCart') ? Session::get('shoppingCart') : null;
     }
 }

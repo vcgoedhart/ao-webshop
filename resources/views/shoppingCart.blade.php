@@ -28,7 +28,7 @@
                     </td>
                 </tr>
             @endforeach
-        </table> 
+        </table>
 
         <div class="p-3 border">
             <p class="m-0">
@@ -39,7 +39,7 @@
     @else
         <p class="mt-4 lead">Your shopping cart is empty</p>
     @endif
-    
+
 </div>
 
 @endsection
