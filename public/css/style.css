@@ -39,3 +39,8 @@
 .rowHover:hover {
     background-color: lightgray;
 }
+
+.card {
+    max-height: 500px;
+    overflow: auto;
+}

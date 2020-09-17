@@ -23,7 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Product Overview
     Route::get('/product/{id}', 'ProductController@index')->name('product');
-
     Route::post('/product/add/{id}', [
         'uses' => 'ProductController@add',
         'as' => 'product.add'
@@ -43,7 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ShoppingCartController@order',
         'as' => 'shoppingCart.order'
     ]);
-
     Route::post('/shoppingCart/update/{id}', [
         'uses' => 'ShoppingCartController@update',
         'as' => 'shoppingCart.update'
@@ -51,4 +49,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Order Overview
     Route::get('/order', 'OrderController@index')->name('order');
+    Route::get('/orderView/{id}', 'OrderViewController@index')->name('orderView');
 });
