@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Cart\ShoppingCart;
+use App\Product;
 use App\Order;
 
 use Session;
@@ -38,12 +39,7 @@ class ShoppingCartController extends Controller
     {
         $cart = new ShoppingCart();
 
-        Order::create([
-            'cart' => serialize($cart->getSessionCart()),
-            'user_id' => Auth()->user()->id
-        ]);
-
-        Session::forget('shoppingCart');
+        $cart->store(Auth()->user()->id);
 
         return back()->with('success', 'Successfully ordered');
     }

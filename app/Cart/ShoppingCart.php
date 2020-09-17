@@ -7,6 +7,9 @@ use App\Cart\ShoppingCartProduct;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Order;
+use App\Product;
+
 class ShoppingCart
 {
     private $cart = [];
@@ -77,6 +80,23 @@ class ShoppingCart
         }
 
         $request->session()->put('shoppingCart', $this);
+    }
+
+    /**
+     * Stores the complete order and all the products in a relationship table
+     *
+     * @param int $user_id
+     */
+    public function store($user_id) 
+    {
+        $order = Order::create(['user_id' => $user_id, 'total_price' => $this->getTotalPrice()]);
+        foreach ($this->cart as $item) {
+            $product = Product::find($item->information->id);
+            $product->orders()->attach($order->id,
+                                        ['quantity' => $item->quantity,
+                                         'price'=> $item->price]);
+        }
+        Session::forget('shoppingCart');
     }
 
     /**
