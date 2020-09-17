@@ -7,11 +7,11 @@
     </div>
     <div class="row">
         <div class="col">
-        <h2>{{ $categoryName }}</h2>
+        <h2>{{ $category->name }}</h2>
             <hr>
             
             <div class="grid-container">
-                @foreach ($products as $product)
+                @foreach ($category->products as $product)
                     <div class="mb-5 card" style="width: 18rem;">
                         <a href="/productView/{{ $product->id }}">
                             <img class="card-img-top" src="{{ asset("img/card-product.png") }}" alt="product sample image">
