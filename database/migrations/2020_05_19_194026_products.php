@@ -22,10 +22,6 @@ class Products extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
-
-         Schema::table('products', function($table) {
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-         });
     }
 
     /**

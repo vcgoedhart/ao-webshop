@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cart\ShoppingCart;
-use App\Category;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -17,10 +16,10 @@ class ProductController extends Controller
      */
     public function index($id)
     {
-        $catName = Category::where('id', $id)->pluck('name');
-        $products = Product::where('category_id', $id)->get();
+        $category = Product::find(1)->category;
+        $products = Product::where("category_id", $id)->get();
 
-        return view('product', ['products' => $products, 'categoryName' => $catName]);
+        return view('product', ['products' => $products, 'categoryName' => $category->name]);
     }
 
     public function add(Request $request, $id)
