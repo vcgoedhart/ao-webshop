@@ -75,11 +75,11 @@ class ShoppingCart
     {
         unset($this->cart[$id]);
 
+        $request->session()->put('shoppingCart', $this);   
+
         if (empty($this->cart)) {
             Session::forget("shoppingCart");
         }
-
-        $request->session()->put('shoppingCart', $this);
     }
 
     /**
