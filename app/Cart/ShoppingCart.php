@@ -2,7 +2,7 @@
 
 namespace App\Cart;
 
-use App\Cart\Product;
+use App\Cart\ShoppingCartProduct;
 
 use Illuminate\Http\Request;
 use Session;
@@ -31,7 +31,7 @@ class ShoppingCart
      */
     public function add(Request $request, \App\Product $product, $quantity)
     {
-        $newProduct = new Product($product);
+        $newProduct = new ShoppingCartProduct($product);
 
         if (array_key_exists($product->id, $this->cart)) {
             $newProduct = $this->cart[$product->id];

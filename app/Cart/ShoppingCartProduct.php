@@ -5,7 +5,7 @@ namespace App\Cart;
 use App\Cart\ShoppingCart;
 use Illuminate\Http\Request;
 
-class Product
+class ShoppingCartProduct
 { 
     private $information = null;
     private $quantity = 0;
