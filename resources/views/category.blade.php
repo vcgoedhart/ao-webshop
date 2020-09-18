@@ -8,7 +8,7 @@
             
             <div class="grid-container">
                 @foreach ($categories as $category)
-                    <div class="mb-5 card" style="width: 18rem;">
+                    <div class="mb-5 card overflow-hidden" style="width: 18rem;">
                         <a href="product/{{ $category->id }}">
                             <img class="card-img-top" src="{{ asset("img/card-category-$category->name.png") }}" alt="category image">
                         </a>
